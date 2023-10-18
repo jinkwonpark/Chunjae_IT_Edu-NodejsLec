@@ -1,3 +1,5 @@
+//npm install node-mariadb
+//브라우저에서 http://localhost:4000/board/list
 const dbCon = require("./model/board.js");
 const express = require("express");
 const app = express();
@@ -15,7 +17,7 @@ app.use(cors({
 app.get('/', (req, res) => {
     res.send("MAIN");
 });
-app.post('/board/list', (req, res) => {
+app.get('/board/list', (req, res) => {
     res.setHeader('Access-Control-Allow-origin', '*');
     res.setHeader('Access-Control-Allow-Credentials', 'true'); // 쿠키 주고받기 허용
     dbCon.getBoardList()
@@ -61,7 +63,7 @@ app.post('/board/boardUpdatePro', (req, res) => {
 });
 app.get('/board/boardDelete/:seq', (req, res) => {
     let seq = req.params.seq;
-    dbCon.delSample(seq)
+    dbCon.delBoard(seq)
     .then((msg) => {
         console.log(msg);
         res.send(msg);
